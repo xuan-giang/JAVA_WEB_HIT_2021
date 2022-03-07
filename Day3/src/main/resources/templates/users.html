@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List</title>
+</head>
+<body>
+<h1 th:align="center">Danh sách người dùng</h1>
+<table th:border="1" th:width="600px" style="margin: 0 auto" th:cellpadding="5px" th:cellspacing="0">
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Fullname</th>
+    </tr>
+    <tr th:each="user: ${users}">
+        <td th:utext="${user.getId()}"></td>
+        <td th:utext="${user.getFullname()}"></td>
+        <td th:utext="${user.getUsername()}"></td>
+    </tr>
+</table>
+
+</body>
+</html>
