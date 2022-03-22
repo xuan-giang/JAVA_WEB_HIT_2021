@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,10 +23,23 @@ public class RedirectServiceImpl implements RedirectService{
     }
 
     @Override
+    public List<Redirect> findAllRedirect() {
+        return redirectRepository.findAll();
+    }
+
+    @Override
     public void createRedirect(String startUrl) {
         Redirect redirect = new Redirect();
         redirect.setUrl(startUrl);
         redirect.setSubUrl(getRandomUrl());
+        redirectRepository.save(redirect);
+    }
+
+    @Override
+    public void createRedirect(String startUrl, String subUrl) {
+        Redirect redirect = new Redirect();
+        redirect.setUrl(startUrl);
+        redirect.setSubUrl(subUrl);
         redirectRepository.save(redirect);
     }
 

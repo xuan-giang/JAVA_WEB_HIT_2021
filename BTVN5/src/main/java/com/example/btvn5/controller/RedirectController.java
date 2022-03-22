@@ -27,19 +27,30 @@ public class RedirectController {
         return "index";
     }
 
+    @GetMapping("/all")
+    public List<Redirect> getAllUrl()
+    {
+        return redirectService.findAllRedirect();
+    }
 
 
     @GetMapping("/create")
-    public String createUrl(@RequestParam("name") String name)
+    public String createUrl(@RequestParam("url") String name)
     {
         redirectService.createRedirect(name);
         return "Created URL successfully!";
     }
 
-    @GetMapping("/{alias}")
-    public ResponseEntity<?> handleRedirect(@PathVariable String alias) throws URISyntaxException {
-        Redirect redirect = redirectService.getRedirect(alias);
-        System.out.println("We're redirecting here!" + redirect);
+    @GetMapping("/create/custom")
+    public String createUrlWithSubUrlCustom(@RequestParam("url") String url, @RequestParam("subUrl") String subUrl)
+    {
+        redirectService.createRedirect(url, subUrl);
+        return "Created URL custom successfully!";
+    }
+
+    @GetMapping("/{url}")
+    public ResponseEntity<?> handleRedirect(@PathVariable String url) throws URISyntaxException {
+        Redirect redirect = redirectService.getRedirect(url);
         URI uri = new URI(redirect.getUrl());
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setLocation(uri);
